@@ -1,33 +1,34 @@
 package com.example.geotask
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.widget.ViewPager2
+import com.example.geotask.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : FragmentActivity() {
-    private lateinit var adapter: PagerAdapter
-    private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
+    private lateinit var binding: ActivityMainBinding
+
+    private fun initBinding() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+    }
 
     private val tabNames: Array<String> = arrayOf(
-        "Початкова точка",
-        "Кінцева точка",
+        "Start point",
+        "End point",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        initBinding()
+        setContentView(binding.root)
 
-        adapter = PagerAdapter(this)
-        viewPager = findViewById(R.id.pager)
-        viewPager.adapter = adapter
+        binding.pager.adapter = PagerAdapter(this)
+        binding.pager.isUserInputEnabled = false
 
-        tabLayout = findViewById(R.id.tab_layout)
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text =tabNames[position]
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            tab.text = tabNames[position]
         }.attach()
     }
+
 }
