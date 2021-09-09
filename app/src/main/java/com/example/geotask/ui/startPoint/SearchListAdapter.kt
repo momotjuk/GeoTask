@@ -31,7 +31,10 @@ class SearchListAdapter : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ViewItemSearchResultBinding.bind(itemView)
         fun bind(value: Address) {
-            binding.textView.text = value.countryName
+            binding.textView.text = StringBuilder()
+                .append(value.countryCode)
+                .append(" ")
+                .append(value.countryName)
             binding.textView.setOnClickListener {
                 onItemClicked?.invoke(value)
             }
