@@ -15,7 +15,7 @@
             android:value="AIzaSyC5GeTfJwB2aR3uPS2EGMkTTh2i_IUhU-g" />
 
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashScreenTheme">
                 <intent-filter>
@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
         </activity>
 

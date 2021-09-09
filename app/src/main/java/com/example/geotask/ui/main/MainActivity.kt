@@ -1,9 +1,8 @@
-package com.example.geotask
+package com.example.geotask.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.geotask.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : FragmentActivity() {

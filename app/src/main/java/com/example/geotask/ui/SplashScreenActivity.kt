@@ -1,9 +1,9 @@
-package com.example.geotask
+package com.example.geotask.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
+import com.example.geotask.ui.main.MainActivity
 import com.example.geotask.databinding.ActivitySplashScreenBinding
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         binding.splashLogo.alpha = 0f
         binding.splashLogo.animate().setDuration(1500).alpha(1f).withEndAction {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }
     }
