@@ -1,15 +1,27 @@
 package com.example.geotask.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import com.example.geotask.ui.routeMap.RouteMapActivity
 import com.example.geotask.databinding.ActivityMainBinding
+import com.example.geotask.ui.PointType
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : FragmentActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var startPoint: String? = null
+    private var endPoint: String? = null
 
     private fun initBinding() {
         binding = ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    fun setPoint(type: PointType, point: String){
+        when (type){
+            PointType.STARTPOINT -> startPoint = point
+            PointType.ENDPOINT -> endPoint = point
+        }
     }
 
     private val tabNames: Array<String> = arrayOf(
@@ -28,6 +40,18 @@ class MainActivity : FragmentActivity() {
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             tab.text = tabNames[position]
         }.attach()
+
+        binding.actionButton.setOnClickListener {
+            configIntent()
+        }
+    }
+
+    private fun configIntent(){
+        val mapIntent =Intent(this, RouteMapActivity::class.java)
+        mapIntent.putExtra(PointType.STARTPOINT.name, startPoint)
+        mapIntent.putExtra(PointType.ENDPOINT.name, endPoint)
+
+        startActivity(mapIntent)
     }
 
 }

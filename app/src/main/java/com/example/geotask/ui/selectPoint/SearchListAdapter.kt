@@ -1,4 +1,4 @@
-package com.example.geotask.ui.startPoint
+package com.example.geotask.ui.selectPoint
 
 import android.location.Address
 import android.view.LayoutInflater
