@@ -19,9 +19,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.coroutineContext
 import com.example.geotask.ui.main.MainActivity as MainActivity1
 
-class SelectPointFragment (private val type: PointType) : Fragment(), OnMapReadyCallback {
+class SelectPointFragment(private val type: PointType) : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private var adapter = SearchListAdapter()
@@ -57,7 +61,9 @@ class SelectPointFragment (private val type: PointType) : Fragment(), OnMapReady
     private fun config() {
         binding.searchEditText.addTextChangedListener(TextChangeListener {
             if (!isClick) {
-                search(binding.searchEditText.text.toString())
+                runBlocking {
+                    search(binding.searchEditText.text.toString())
+                }
             }
         })
 
@@ -86,12 +92,14 @@ class SelectPointFragment (private val type: PointType) : Fragment(), OnMapReady
         binding.recyclerView.isVisible = adapter.itemCount > 0
     }
 
-    private fun search(text: String) {
-        if (text.isNotEmpty()) {
-            adapter.addresses = Geocoder(requireContext()).getFromLocationName(text, 3)
-            binding.recyclerView.adapter = adapter
+    private suspend fun search(text: String) = coroutineScope {
+        launch {
+            if (text.isNotEmpty()) {
+                adapter.addresses = Geocoder(requireContext()).getFromLocationName(text, 2)
+                binding.recyclerView.adapter = adapter
+            }
+            displayList()
         }
-        displayList()
     }
 
     private fun Fragment.hideKeyboard() {

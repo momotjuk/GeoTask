@@ -1,5 +1,8 @@
 package com.example.geotask.ui.routeMap
 
+import android.content.Context
+import android.content.Intent
+import android.hardware.usb.UsbEndpoint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.geotask.R
@@ -18,6 +21,21 @@ class RouteMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityRouteMapBinding
 
+    companion object {
+        private const val point1: String = "STARTPOINT"
+        private const val point2: String = "ENDPOINT"
+        fun newIntent(
+            context: Context,
+            startPoint: String?,
+            endPoint: String?
+        ): Intent{
+            val intent = Intent(context, RouteMapActivity::class.java)
+            intent.putExtra(point1, startPoint)
+            intent.putExtra(point2, endPoint)
+            return intent
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,7 +44,7 @@ class RouteMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.map_layout) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -37,8 +55,8 @@ class RouteMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val firstPoint = LatLng(-34.0, 151.0)
         val secondPoint = LatLng(-34.0, 149.0)
 
-        mMap.addMarker(MarkerOptions().position(firstPoint).title(intent.getStringExtra(PointType.STARTPOINT.name)))
-        mMap.addMarker(MarkerOptions().position(secondPoint).title(intent.getStringExtra(PointType.ENDPOINT.name)))
+        mMap.addMarker(MarkerOptions().position(firstPoint).title(intent.getStringExtra(point1)))
+        mMap.addMarker(MarkerOptions().position(secondPoint).title(intent.getStringExtra(point2)))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(firstPoint))
     }
 }

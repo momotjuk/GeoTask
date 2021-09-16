@@ -22,7 +22,6 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun addSplashAnimation() {
-
         binding.splashLogo.alpha = 0f
         binding.splashLogo.animate().setDuration(1500).alpha(1f).withEndAction {
             startActivity(Intent(this, MainActivity::class.java).apply {

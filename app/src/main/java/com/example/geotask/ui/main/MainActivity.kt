@@ -42,16 +42,7 @@ class MainActivity : FragmentActivity() {
         }.attach()
 
         binding.actionButton.setOnClickListener {
-            configIntent()
+            startActivity(RouteMapActivity.newIntent(this, startPoint, endPoint))
         }
     }
-
-    private fun configIntent(){
-        val mapIntent =Intent(this, RouteMapActivity::class.java)
-        mapIntent.putExtra(PointType.STARTPOINT.name, startPoint)
-        mapIntent.putExtra(PointType.ENDPOINT.name, endPoint)
-
-        startActivity(mapIntent)
-    }
-
 }
