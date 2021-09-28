@@ -44,7 +44,10 @@ android {
     productFlavors {
         develop {
             applicationId = "com.geotask.develop"
-            resValue  "string", "GOOGLE_MAPS_API_KEY", "\"AIzaSyC5GeTfJwB2aR3uPS2EGMkTTh2i_IUhU-g\""
+            buildConfigField "String", "GOOGLE_MAPS_API_KEY",
+                    "\"AIzaSyC5GeTfJwB2aR3uPS2EGMkTTh2i_IUhU-g\""
+            buildConfigField "String", "BASE_URL",
+                    "\"https://maps.googleapis.com/maps/api/directions/json?key=AIzaSyC5GeTfJwB2aR3uPS2EGMkTTh2i_IUhU-g\""
         }
     }
 }
@@ -54,7 +57,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
@@ -63,5 +66,8 @@ dependencies {
     implementation "androidx.core:core-ktx:1.6.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
 }
