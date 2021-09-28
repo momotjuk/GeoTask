@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GeoTask</string>
+    <string name="search_edit_text">Search Location</string>
+    <string name="title_activity_route_map">RouteMapActivity</string>
 </resources>
